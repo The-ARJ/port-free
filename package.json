@@ -1,0 +1,34 @@
+{
+  "name": "port-free",
+  "version": "1.0.0",
+  "description": "Kill whatever is running on a port. One command, cross-platform.",
+  "keywords": ["port", "kill", "process", "cli", "devtools", "network"],
+  "author": "Aayush Raj Joshi",
+  "license": "MIT",
+  "homepage": "https://github.com/The-ARJ/port-free#readme",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/The-ARJ/port-free.git"
+  },
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "bin": {
+    "port-free": "dist/cli.js"
+  },
+  "files": ["dist"],
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsc --watch",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "prepublishOnly": "npm run build && npm test"
+  },
+  "devDependencies": {
+    "typescript": "^5.4.0",
+    "vitest": "^1.6.0",
+    "@types/node": "^20.0.0"
+  },
+  "engines": {
+    "node": ">=16"
+  }
+}
