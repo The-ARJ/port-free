@@ -1,11 +1,5 @@
 # portkill
 
-[![npm version](https://img.shields.io/npm/v/portkill?color=crimson&style=flat-square)](https://www.npmjs.com/package/portkill)
-[![npm downloads](https://img.shields.io/npm/dm/portkill?style=flat-square)](https://www.npmjs.com/package/portkill)
-[![license](https://img.shields.io/npm/l/portkill?style=flat-square)](LICENSE)
-[![node](https://img.shields.io/node/v/portkill?style=flat-square)](package.json)
-[![zero deps](https://img.shields.io/badge/dependencies-0-brightgreen?style=flat-square)](#)
-
 > Kill whatever is running on a port. One command, cross-platform, zero dependencies.
 
 No more googling `lsof` flags. No more `netstat -ano | findstr` on Windows. Just run it.
