@@ -18,8 +18,7 @@ export function killProcess(
 ): KillResult {
   try {
     if (process.platform === "win32") {
-      const flag = signal === "SIGKILL" ? "/F" : "";
-      execSync(`taskkill ${flag} /PID ${pid}`, {
+      execSync(`taskkill /F /PID ${pid}`, {
         stdio: ["pipe", "pipe", "pipe"],
       });
     } else {
