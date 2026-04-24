@@ -1,5 +1,5 @@
 {
-  "name": "free-port",
+  "name": "portkill",
   "version": "1.0.0",
   "description": "Kill whatever is running on a port. One command, cross-platform, zero dependencies.",
   "keywords": [
@@ -20,8 +20,8 @@
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "bin": {
-    "free-port": "dist/cli.js",
-    "fp": "dist/cli.js"
+    "portkill": "dist/cli.js",
+    "pk": "dist/cli.js"
   },
   "files": ["dist"],
   "scripts": {
