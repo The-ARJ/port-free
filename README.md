@@ -148,8 +148,8 @@ type KillSignal = "SIGTERM" | "SIGKILL";
 ## Contributing
 
 ```sh
-git clone https://github.com/The-ARJ/port-free
-cd port-free
+git clone https://github.com/The-ARJ/nukport
+cd nukport
 npm install
 npm run dev   # watch mode
 npm test      # run tests
