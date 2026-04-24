@@ -1,11 +1,11 @@
-# portkill
+# nukport
 
 > Kill whatever is running on a port. One command, cross-platform, zero dependencies.
 
 No more googling `lsof` flags. No more `netstat -ano | findstr` on Windows. Just run it.
 
 ```sh
-npx portkill 3000
+npx nukport 3000
 ```
 
 ```
@@ -18,10 +18,10 @@ npx portkill 3000
 
 ```sh
 # Use without installing (recommended)
-npx portkill 3000
+npx nukport 3000
 
 # Or install globally
-npm install -g portkill
+npm install -g nukport
 ```
 
 ---
@@ -30,11 +30,11 @@ npm install -g portkill
 
 ```sh
 # Free a single port
-portkill 3000
+nukport 3000
 fp 3000
 
 # Free multiple ports at once
-portkill 3000 8080 9000
+nukport 3000 8080 9000
 fp 3000 8080 9000
 
 # Force kill — SIGKILL, no graceful shutdown
@@ -75,7 +75,7 @@ $ fp --list
 ## Programmatic API
 
 ```ts
-import { freePort, freePorts, findProcess, findAllListening } from "portkill";
+import { freePort, freePorts, findProcess, findAllListening } from "nukport";
 
 // Free a port
 const result = await freePort(3000);
@@ -137,11 +137,11 @@ type KillSignal = "SIGTERM" | "SIGKILL";
 
 ---
 
-## Why portkill?
+## Why nukport?
 
 - **`fkill`** — requires interactive prompts, heavier install
 - **`kill-port`** — no `--list`, no dry-run, unmaintained
-- **`portkill`** — CLI + programmatic API, cross-platform, zero deps, `fp` shorthand
+- **`nukport`** — CLI + programmatic API, cross-platform, zero deps, `fp` shorthand
 
 ---
 

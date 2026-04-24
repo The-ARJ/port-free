@@ -20,12 +20,12 @@ function dim(s: string) { return `${DIM}${s}${RESET}`; }
 
 function printHelp() {
   console.log(`
-${bold("portkill")} \u2014 kill whatever is running on a port
+${bold("nukport")} \u2014 kill whatever is running on a port
 
 ${bold("USAGE")}
-  portkill ${cyan("<port>")} [options]
-  portkill ${cyan("<port1> <port2> ...")}  (multiple ports)
-  portkill ${cyan("--list")}
+  nukport ${cyan("<port>")} [options]
+  nukport ${cyan("<port1> <port2> ...")}  (multiple ports)
+  nukport ${cyan("--list")}
 
 ${bold("OPTIONS")}
   --force       SIGKILL instead of SIGTERM (immediate, no cleanup)
@@ -34,8 +34,8 @@ ${bold("OPTIONS")}
   --help        Show this help
 
 ${bold("EXAMPLES")}
-  npx portkill 3000
-  npx portkill 3000 8080 9000
+  npx nukport 3000
+  npx nukport 3000 8080 9000
   fp 3000 --force
   fp 3000 --dry-run
   fp --list
@@ -102,7 +102,7 @@ function run() {
 
   if (ports.length === 0) {
     console.error(red("Error: provide at least one port number."));
-    console.error(dim("Usage: portkill <port> [--force] [--dry-run]"));
+    console.error(dim("Usage: nukport <port> [--force] [--dry-run]"));
     process.exit(1);
   }
 

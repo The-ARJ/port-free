@@ -1,5 +1,5 @@
 {
-  "name": "portkill",
+  "name": "nukport",
   "version": "1.0.0",
   "description": "Kill whatever is running on a port. One command, cross-platform, zero dependencies.",
   "keywords": [
@@ -20,7 +20,7 @@
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "bin": {
-    "portkill": "dist/cli.js",
+    "nukport": "dist/cli.js",
     "fp": "dist/cli.js"
   },
   "files": ["dist"],
