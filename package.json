@@ -20,7 +20,8 @@
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "bin": {
-    "free-port": "dist/cli.js"
+    "free-port": "dist/cli.js",
+    "fp": "dist/cli.js"
   },
   "files": ["dist"],
   "scripts": {
