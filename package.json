@@ -3,16 +3,29 @@
   "version": "1.0.0",
   "description": "Kill whatever is running on a port. One command, cross-platform, zero dependencies.",
   "keywords": [
-    "port", "kill", "process", "cli", "devtools", "network",
-    "kill-port", "free-port", "port-killer", "lsof", "netstat",
-    "cross-platform", "windows", "macos", "linux", "developer-tools"
+    "port",
+    "kill",
+    "process",
+    "cli",
+    "devtools",
+    "network",
+    "kill-port",
+    "free-port",
+    "port-killer",
+    "lsof",
+    "netstat",
+    "cross-platform",
+    "windows",
+    "macos",
+    "linux",
+    "developer-tools"
   ],
   "author": "Aayush Raj Joshi <joshiaayush871@gmail.com> (https://github.com/The-ARJ)",
   "license": "MIT",
   "homepage": "https://github.com/The-ARJ/port-free#readme",
   "repository": {
     "type": "git",
-    "url": "https://github.com/The-ARJ/port-free.git"
+    "url": "git+https://github.com/The-ARJ/port-free.git"
   },
   "bugs": {
     "url": "https://github.com/The-ARJ/port-free/issues"
@@ -23,7 +36,9 @@
     "nukport": "dist/cli.js",
     "fp": "dist/cli.js"
   },
-  "files": ["dist"],
+  "files": [
+    "dist"
+  ],
   "scripts": {
     "build": "tsc",
     "dev": "tsc --watch",
