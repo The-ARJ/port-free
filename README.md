@@ -1,9 +1,9 @@
-# port-free
+# portkill
 
-[![npm version](https://img.shields.io/npm/v/port-free?color=crimson&style=flat-square)](https://www.npmjs.com/package/port-free)
-[![npm downloads](https://img.shields.io/npm/dm/port-free?style=flat-square)](https://www.npmjs.com/package/port-free)
-[![license](https://img.shields.io/npm/l/port-free?style=flat-square)](LICENSE)
-[![node](https://img.shields.io/node/v/port-free?style=flat-square)](package.json)
+[![npm version](https://img.shields.io/npm/v/portkill?color=crimson&style=flat-square)](https://www.npmjs.com/package/portkill)
+[![npm downloads](https://img.shields.io/npm/dm/portkill?style=flat-square)](https://www.npmjs.com/package/portkill)
+[![license](https://img.shields.io/npm/l/portkill?style=flat-square)](LICENSE)
+[![node](https://img.shields.io/node/v/portkill?style=flat-square)](package.json)
 [![zero deps](https://img.shields.io/badge/dependencies-0-brightgreen?style=flat-square)](#)
 
 > Kill whatever is running on a port. One command, cross-platform, zero dependencies.
@@ -11,7 +11,7 @@
 No more googling `lsof` flags. No more `netstat -ano | findstr` on Windows. Just run it.
 
 ```sh
-npx port-free 3000
+npx portkill 3000
 ```
 
 ```
@@ -24,10 +24,10 @@ npx port-free 3000
 
 ```sh
 # Use without installing (recommended)
-npx port-free 3000
+npx portkill 3000
 
 # Or install globally
-npm install -g port-free
+npm install -g portkill
 ```
 
 ---
@@ -36,33 +36,35 @@ npm install -g port-free
 
 ```sh
 # Free a single port
-port-free 3000
+portkill 3000
+fp 3000
 
 # Free multiple ports at once
-port-free 3000 8080 9000
+portkill 3000 8080 9000
+fp 3000 8080 9000
 
 # Force kill — SIGKILL, no graceful shutdown
-port-free 3000 --force
+fp 3000 --force
 
 # Preview what would be killed without killing it
-port-free 3000 --dry-run
+fp 3000 --dry-run
 
 # List all processes currently listening on ports
-port-free --list
+fp --list
 ```
 
 ### Demo output
 
 ```
-$ port-free 3000 8080 --dry-run
+$ fp 3000 8080 --dry-run
 ~ Port 3000 — would kill node (PID 18423)
 ~ Port 8080 — would kill python (PID 22910)
 
-$ port-free 3000 8080
+$ fp 3000 8080
 ✓ Port 3000 freed — killed node (PID 18423)
 ✓ Port 8080 freed — killed python (PID 22910)
 
-$ port-free --list
+$ fp --list
 
   Listening processes:
 
@@ -79,7 +81,7 @@ $ port-free --list
 ## Programmatic API
 
 ```ts
-import { freePort, freePorts, findProcess, findAllListening } from "port-free";
+import { freePort, freePorts, findProcess, findAllListening } from "portkill";
 
 // Free a port
 const result = await freePort(3000);
@@ -90,7 +92,6 @@ const results = await freePorts([3000, 8080, 9000]);
 
 // Dry run — see what would be killed
 const preview = await freePort(3000, { dryRun: true });
-// { port: 3000, freed: false, dryRun: true, process: { pid: 18423, name: "node" } }
 
 // Force kill (SIGKILL)
 await freePort(3000, { signal: "SIGKILL" });
@@ -101,7 +102,6 @@ const info = findProcess(3000);
 
 // List all listening processes
 const all = findAllListening();
-// [{ port: 3000, pid: 12345, name: "node" }, ...]
 ```
 
 ### TypeScript types
@@ -115,12 +115,6 @@ interface FreePortResult {
   error?: string;
 }
 
-interface ProcessInfo {
-  pid: number;
-  port: number;
-  name: string;
-}
-
 type KillSignal = "SIGTERM" | "SIGKILL";
 ```
 
@@ -128,32 +122,32 @@ type KillSignal = "SIGTERM" | "SIGKILL";
 
 ## Cross-platform
 
-| Platform | How it finds the process | How it kills |
-|----------|--------------------------|--------------|
-| macOS    | `lsof -ti tcp:<port>`    | `kill -15 / -9` |
-| Linux    | `lsof -ti tcp:<port>`    | `kill -15 / -9` |
-| Windows  | `netstat -ano`           | `taskkill [/F] /PID` |
+| Platform | Detection     | Kill              |
+|----------|---------------|-------------------|
+| macOS    | `lsof`        | `kill -15 / -9`   |
+| Linux    | `lsof`        | `kill -15 / -9`   |
+| Windows  | `netstat`     | `taskkill [/F]`   |
 
-**Zero runtime dependencies.** Only Node.js built-ins (`child_process`).
+**Zero runtime dependencies.**
 
 ---
 
 ## Options
 
-| Flag | Alias | Description |
-|------|-------|-------------|
-| `--force` | `-f` | Use SIGKILL instead of SIGTERM (immediate) |
-| `--dry-run` | | Show what would be killed without doing it |
-| `--list` | `-l` | List all processes listening on ports |
-| `--help` | `-h` | Show help |
+| Flag        | Alias | Description                              |
+|-------------|-------|------------------------------------------|
+| `--force`   | `-f`  | SIGKILL — immediate, no graceful cleanup |
+| `--dry-run` |       | Show what would be killed, don't kill    |
+| `--list`    | `-l`  | List all processes listening on ports    |
+| `--help`    | `-h`  | Show help                                |
 
 ---
 
-## Why port-free?
+## Why portkill?
 
 - **`fkill`** — requires interactive prompts, heavier install
 - **`kill-port`** — no `--list`, no dry-run, unmaintained
-- **`port-free`** — CLI + programmatic API, cross-platform, zero deps, actively maintained
+- **`portkill`** — CLI + programmatic API, cross-platform, zero deps, `fp` shorthand
 
 ---
 
@@ -163,8 +157,8 @@ type KillSignal = "SIGTERM" | "SIGKILL";
 git clone https://github.com/The-ARJ/port-free
 cd port-free
 npm install
-npm run dev      # watch mode
-npm test         # run tests
+npm run dev   # watch mode
+npm test      # run tests
 ```
 
 ---

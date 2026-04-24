@@ -21,7 +21,7 @@
   "types": "dist/index.d.ts",
   "bin": {
     "portkill": "dist/cli.js",
-    "pk": "dist/cli.js"
+    "fp": "dist/cli.js"
   },
   "files": ["dist"],
   "scripts": {
