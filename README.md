@@ -5,11 +5,18 @@
 No more googling `lsof` flags. No more `netstat -ano | findstr` on Windows. Just run it.
 
 ```sh
-npx @the-arj/nukport 3000
+npm install -g @the-arj/nukport
+nukport 3000
 ```
 
 ```
 ✓ Port 3000 freed — killed node (PID 18423)
+```
+
+Or use the two-character shorthand:
+
+```sh
+fp 3000
 ```
 
 ---
@@ -17,12 +24,14 @@ npx @the-arj/nukport 3000
 ## Install
 
 ```sh
-# Use without installing (recommended)
-npx @the-arj/nukport 3000
-
-# Or install globally
+# Recommended — install once, use anywhere
 npm install -g @the-arj/nukport
+
+# Or try without installing
+npx @the-arj/nukport 3000
 ```
+
+After installing, two commands are on your PATH: `nukport` and `fp` (shorthand).
 
 ---
 
