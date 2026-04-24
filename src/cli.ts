@@ -34,8 +34,8 @@ ${bold("OPTIONS")}
   --help        Show this help
 
 ${bold("EXAMPLES")}
-  npx nukport 3000
-  npx nukport 3000 8080 9000
+  npx @the-arj/nukport 3000
+  npx @the-arj/nukport 3000 8080 9000
   fp 3000 --force
   fp 3000 --dry-run
   fp --list

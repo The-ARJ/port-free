@@ -8,18 +8,22 @@ export interface ProcessInfo {
 
 function findOnWindows(port: number): ProcessInfo | null {
   try {
-    const out = execSync(
-      `netstat -ano | findstr ":${port} "`,
-      { encoding: "utf8", stdio: ["pipe", "pipe", "pipe"] }
-    );
+    const out = execSync(`netstat -ano`, {
+      encoding: "utf8",
+      stdio: ["pipe", "pipe", "pipe"],
+    });
+    const portSuffix = `:${port}`;
     for (const line of out.split("\n")) {
-      const match = line.match(/\s+(\d+)\s*$/);
-      if (match && line.includes(`0.0.0.0:${port}`) || line.includes(`127.0.0.1:${port}`) || line.includes(`[::]:${port}`)) {
-        const pid = parseInt(match![1], 10);
-        if (pid > 0) {
-          const name = getProcessNameWindows(pid);
-          return { pid, port, name };
-        }
+      if (!/\bLISTENING\b/i.test(line)) continue;
+      const parts = line.trim().split(/\s+/);
+      if (parts.length < 5 || parts[0].toUpperCase() !== "TCP") continue;
+      const local = parts[1];
+      const lastColon = local.lastIndexOf(":");
+      if (lastColon === -1) continue;
+      if (local.slice(lastColon) !== portSuffix) continue;
+      const pid = parseInt(parts[parts.length - 1], 10);
+      if (pid > 0) {
+        return { pid, port, name: getProcessNameWindows(pid) };
       }
     }
     return null;
@@ -77,19 +81,24 @@ export function findProcess(port: number): ProcessInfo | null {
 export function findAllListening(): Array<{ port: number; pid: number; name: string }> {
   try {
     if (process.platform === "win32") {
-      const out = execSync("netstat -ano", { encoding: "utf8", stdio: ["pipe", "pipe", "pipe"] });
+      const out = execSync("netstat -ano", {
+        encoding: "utf8",
+        stdio: ["pipe", "pipe", "pipe"],
+      });
       const results: Array<{ port: number; pid: number; name: string }> = [];
       const seen = new Set<number>();
       for (const line of out.split("\n")) {
-        const m = line.match(/\s+(?:TCP|UDP)\s+(?:0\.0\.0\.0|127\.0\.0\.1|\[::\]):(\d+)\s+\S+\s+(?:LISTENING)?\s+(\d+)/i);
-        if (m) {
-          const port = parseInt(m[1], 10);
-          const pid = parseInt(m[2], 10);
-          if (!seen.has(port) && pid > 0) {
-            seen.add(port);
-            results.push({ port, pid, name: getProcessNameWindows(pid) });
-          }
-        }
+        if (!/\bLISTENING\b/i.test(line)) continue;
+        const parts = line.trim().split(/\s+/);
+        if (parts.length < 5 || parts[0].toUpperCase() !== "TCP") continue;
+        const local = parts[1];
+        const lastColon = local.lastIndexOf(":");
+        if (lastColon === -1) continue;
+        const port = parseInt(local.slice(lastColon + 1), 10);
+        const pid = parseInt(parts[parts.length - 1], 10);
+        if (!port || !pid || seen.has(port)) continue;
+        seen.add(port);
+        results.push({ port, pid, name: getProcessNameWindows(pid) });
       }
       return results.sort((a, b) => a.port - b.port);
     } else {

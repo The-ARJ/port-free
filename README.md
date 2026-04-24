@@ -5,7 +5,7 @@
 No more googling `lsof` flags. No more `netstat -ano | findstr` on Windows. Just run it.
 
 ```sh
-npx nukport 3000
+npx @the-arj/nukport 3000
 ```
 
 ```
@@ -18,10 +18,10 @@ npx nukport 3000
 
 ```sh
 # Use without installing (recommended)
-npx nukport 3000
+npx @the-arj/nukport 3000
 
 # Or install globally
-npm install -g nukport
+npm install -g @the-arj/nukport
 ```
 
 ---
@@ -75,7 +75,7 @@ $ fp --list
 ## Programmatic API
 
 ```ts
-import { freePort, freePorts, findProcess, findAllListening } from "nukport";
+import { freePort, freePorts, findProcess, findAllListening } from "@the-arj/nukport";
 
 // Free a port
 const result = await freePort(3000);
@@ -120,7 +120,7 @@ type KillSignal = "SIGTERM" | "SIGKILL";
 |----------|---------------|-------------------|
 | macOS    | `lsof`        | `kill -15 / -9`   |
 | Linux    | `lsof`        | `kill -15 / -9`   |
-| Windows  | `netstat`     | `taskkill [/F]`   |
+| Windows  | `netstat`     | `taskkill /F`     |
 
 **Zero runtime dependencies.**
 
